@@ -26,6 +26,12 @@ public class Channel {
 //    private List<User> users;
 //    public List<User> GetUsers() { return users;}
 
+    @ManyToMany(mappedBy = "ListChannels")
+    private List<User> UsersList;
+    public List<User>  GetListUser() { return UsersList;}
+    public void SetListUser(List<User> user) { UsersList = user;}
+
+
     @OneToMany(mappedBy="receiver")
     private List<Message> messages;
     public List<Message> GetMessages() { return messages;}

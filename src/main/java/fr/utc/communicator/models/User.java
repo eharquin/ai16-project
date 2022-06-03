@@ -32,8 +32,18 @@ public class User  {
     public String GetPassword() { return password;}
     public void SetPassword(String p) {password = p;}
 
-    @ManyToMany
-    List<Channel> channnels;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable (
+            name = "user_channel",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "channel_id") }
+    )
+    //Set<Channel> Channels;
+    private List<Channel> ListChannels;
+    public List<Channel> GetListChannels() {return ListChannels;}
+    public void SetListChannels(List<Channel> channels) {ListChannels = channels;}
+
+
 
     public User()
     {

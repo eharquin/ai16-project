@@ -1,13 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+<head th:replace="fragments/head :: head"></head>
 <body>
 <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
@@ -19,8 +12,7 @@
         <p class="mt-2 text-center text-sm text-gray-600">
             Or
             <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
-                register
-            </a>
+                register now            </a>
         </p>
     </div>
 
