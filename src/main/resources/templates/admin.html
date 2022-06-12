@@ -26,69 +26,143 @@
         }
 
     </script>
+    <style>
+        body {
+            background: rgb(255, 255, 255);
+        }
+
+        [data-tab-info] {
+            display: none;
+        }
+
+        .active[data-tab-info] {
+            display: block;
+        }
+
+        .tab-content {
+            font-size: 30px;
+            font-family: sans-serif;
+            font-weight: bold;
+            color: rgb(82, 75, 75);
+        }
+
+        .tabs {
+            font-size: 40px;
+            color: rgb(255, 255, 255);
+            display: flex;
+            margin: 0;
+        }
+
+        .tabs span {
+            background: rgb(80, 60, 130);
+            padding: 10px;
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        .tabs span:hover {
+            background: rgb(29, 185, 112);
+            cursor: pointer;
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <table border="1" id="admin">
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Password</th>
-        </tr>
-        <tbody  >
-        <tr >
-            <td  >
-                <input type="text" readonly="true" name="Name">
-            </td>
-            <td>
-                <input type="text" readonly="true" name="Email">
-            </td>
-            <td>
-                <input type="text" readonly="true" name="Password">
-            </td>
-            <td>
-                <input type="button" readonly="true" id="addUser()" onClick="addUser()" value="Remove" />
-            </td>
-            <td>
-                <input type="button" value="remove" onclick="removeUser(this.parentNode)">
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
+<div class="tabs">
+    <span data-tab-value="#tab_1">User manager</span>
+    <span data-tab-value="#tab_2">Channel manager</span>
+    <span data-tab-value="#tab_3">Admin desciption</span>
 </div>
-<div>
-    <div>
-        <label for="username" class="block text-sm font-medium text-gray-700">
-            Username
-        </label>
-        <div class="mt-1">
-            <input id="username" name="username" type="text" autocomplete="username" required
-                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+<div class="tab-content">
+    <div class="tabs__tab active" id="tab_1" data-tab-info>
+        <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <table border="1" id="admin">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+                <tbody  >
+                <tr >
+                    <td  >
+                        <input type="text" readonly="true" name="Name">
+                    </td>
+                    <td>
+                        <input type="text" readonly="true" name="Email">
+                    </td>
+                    <td>
+                        <input type="text" readonly="true" name="Password">
+                    </td>
+                    <td>
+                        <input type="button" readonly="true" id="addUser()" onClick="addUser()" value="Remove" />
+                    </td>
+                    <td>
+                        <input type="button" value="remove" onclick="removeUser(this.parentNode)">
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
         </div>
+        <div>
+            <label for="username" class="block text-sm font-medium text-gray-700">
+                Username
+            </label>
+            <div class="mt-1">
+                <input id="username" name="username" type="text" autocomplete="username" required
+                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+        </div>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">
+                Email address
+            </label>
+            <div class="mt-1">
+                <input id="email" name="mail" type="email" autocomplete="email" required
+                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+        </div>
+
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">
+                Password
+            </label>
+            <div class="mt-1">
+                <input id="password" name="password" type="text" autocomplete="current-password" required
+                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+        </div>
+        <input type="button" value="AddUser"/>
     </div>
 
-    <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">
-            Email address
-        </label>
-        <div class="mt-1">
-            <input id="email" name="mail" type="email" autocomplete="email" required
-                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
+    <div class="tabs__tab" id="tab_2" data-tab-info>
+        <p>A finaliser</p>
     </div>
+    <div class="tabs__tab" id="tab_3" data-tab-info>
+        <p>Solan Matthieu</p>
+        <p>Enzo Harquin</p>
+        <p>Antonin Guyot</p>
 
-    <div>
-        <label for="password" class="block text-sm font-medium text-gray-700">
-            Password
-        </label>
-        <div class="mt-1">
-            <input id="password" name="password" type="text" autocomplete="current-password" required
-                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
     </div>
-    <input type="button" value="AddUser"/>
 </div>
+<script type="text/javascript">
+    const tabs = document.querySelectorAll('[data-tab-value]')
+    const tabInfos = document.querySelectorAll('[data-tab-info]')
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = document
+                .querySelector(tab.dataset.tabValue);
+
+            tabInfos.forEach(tabInfo => {
+                tabInfo.classList.remove('active')
+            })
+            target.classList.add('active');
+        })
+    })
+</script>
 </body>
+
 </html>

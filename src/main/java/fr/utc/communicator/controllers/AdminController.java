@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import fr.utc.communicator.repositories.UserRepository;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.List;
@@ -24,7 +25,7 @@ public class AdminController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/admin")
-    public String login() {
+    public String admin() {
         return "admin";
     }
 
@@ -33,6 +34,12 @@ public class AdminController {
         List<User> users = userRepository.findAll();
         return users;
     }
+
+    /*@PostMapping("/admin")
+    public ModelAndView showUsers()
+    {
+        //List<User> users = userRepository;
+    }*/
 
     @PostMapping("/admin")
     public void addUser(@RequestParam("username") String username, @RequestParam("mail") String mail, @RequestParam("password") String password ) {
