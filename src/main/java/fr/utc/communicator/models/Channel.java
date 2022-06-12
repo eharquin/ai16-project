@@ -6,37 +6,77 @@ import java.util.List;
 @Entity
 @Table(name = "channels")
 public class Channel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public void SetId(Long c) {id = c;}
-    public Long GetId() {return id ;}
-
     @Column
-    String name;
-    public void SetName(String n) {name = n;}
-    public String GetName() {return name;}
-
+    private String name;
     @Column
-    private String password;
-    public String GetPassword() { return password;}
-    public void SetPassword(String p) {password = p;}
+    private String description;
+    @Column
+    private String date;
+    @Column
+    private String duration;
+    @ManyToMany
+    @JoinTable(
+            name = "user_channel",
+            joinColumns = @JoinColumn(name = "channel_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private List<User> members;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
-//    @ManyToMany(mappedBy="")
-//    private List<User> users;
-//    public List<User> GetUsers() { return users;}
+    public Channel() {
 
-    @ManyToMany(mappedBy = "ListChannels")
-    private List<User> UsersList;
-    public List<User>  GetListUser() { return UsersList;}
-    public void SetListUser(List<User> user) { UsersList = user;}
+    }
 
+    public Long getId() {
+        return id;
+    }
 
-    @OneToMany(mappedBy="receiver")
-    private List<Message> messages;
-    public List<Message> GetMessages() { return messages;}
+    public User getOwner() {
+        return owner;
+    }
 
-    public Channel()
-    {
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public List<User> getMembers() {
+        return members;
     }
 }

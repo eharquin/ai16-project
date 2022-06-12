@@ -24,16 +24,15 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam("username") String username, @RequestParam("mail") String mail, @RequestParam("password") String password ) {
+    public String register(@RequestParam("username") String username, @RequestParam("mail") String mail, @RequestParam("password") String password) {
         User user = userRepository.findByMail(mail);
         if (user == null) {
             user = new User();
-            user.SetName(username);
-            user.SetMail(mail);
-            user.SetPassword(bCryptPasswordEncoder.encode(password));
+            user.setName(username);
+            user.setName(mail);
+            user.setPassword(bCryptPasswordEncoder.encode(password));
             userRepository.save(user);
-        } else
-        {
+        } else {
             System.out.println(mail + " already exist.");
         }
 

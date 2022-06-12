@@ -14,6 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     @GetMapping("/home")
     public String login() {
-        return "home";
+        return "redirect:/channels/1";
     }
 }

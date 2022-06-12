@@ -29,6 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
         grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
 
-        return new org.springframework.security.core.userdetails.User(user.GetName(), user.GetPassword(), grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), grantedAuthorities);
     }
 }

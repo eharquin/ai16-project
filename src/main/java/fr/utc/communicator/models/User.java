@@ -5,47 +5,58 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User  {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public void SetId(Long c) {id = c;}
-    public Long GetId() {return id ;}
-
     @Column
-    String name;
-    public void SetName(String n) {name = n;}
-    public String GetName() {return name;}
-
+    private String name;
     @Column
-    String mail;
-    public void SetMail(String m) {mail = m;}
-    public String GetMail() {return mail;}
-
+    private String mail;
     @Column
     private boolean isAdmin;
-    public boolean GetIsAdmin() {return isAdmin;}
-    public void GetIsAdmin(boolean a) {isAdmin = a;}
-
     @Column
     private String password;
-    public String GetPassword() { return password;}
-    public void SetPassword(String p) {password = p;}
+    @ManyToMany(mappedBy = "members")
+    private List<Channel> channels;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable (
-            name = "user_channel",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "channel_id") }
-    )
-    //Set<Channel> Channels;
-    private List<Channel> ListChannels;
-    public List<Channel> GetListChannels() {return ListChannels;}
-    public void SetListChannels(List<Channel> channels) {ListChannels = channels;}
+    public Long getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public User()
-    {
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getProfilePictureUrl() {
+        return String.format("https://ui-avatars.com/api/?name=%s&background=212936&color=D2D5DA&size=128", getName());
+    }
+
+    public List<Channel> getChannels() {
+        return channels;
     }
 }

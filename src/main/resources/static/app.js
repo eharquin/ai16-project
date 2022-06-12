@@ -46,6 +46,7 @@ function disconnect() {
 
 function sendMessage() {
     stompClient.send("/app/channels/1/send", {}, JSON.stringify({'content': $("#message").val()}));
+    $("#message").val('');
 }
 
 function showGreeting(message) {
