@@ -35,20 +35,24 @@ public class AdminController {
         return users;
     }
 
-    /*@PostMapping("/admin")
+    @PostMapping("/admin")
     public ModelAndView showUsers()
     {
-        //List<User> users = userRepository;
-    }*/
+        List<User> users = userRepository.findAll();
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("userLists");
+        mv.addObject("tab",users);
+        return mv;
+    }
 
     @PostMapping("/admin")
     public void addUser(@RequestParam("username") String username, @RequestParam("mail") String mail, @RequestParam("password") String password ) {
         User user = userRepository.findByMail(mail);
         if (user == null) {
             user = new User();
-            user.SetName(username);
-            user.SetMail(mail);
-            user.SetPassword(bCryptPasswordEncoder.encode(password));
+            user.setName(username);
+            user.setMail(mail);
+            user.setPassword(bCryptPasswordEncoder.encode(password));
             userRepository.save(user);
         }
         else
@@ -60,7 +64,7 @@ public class AdminController {
     @PostMapping("/admin")
     public void removeUser(@RequestParam("mail") String mail) {
         User user = userRepository.findByMail(mail);
-        if (user != null & user.GetIsAdmin() == false)
+        if (user != null & user.getIsAdmin() == false)
         {
             userRepository.delete(user);
         }

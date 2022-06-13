@@ -2,19 +2,17 @@
 <html lang="en">
 <head th:replace="fragments/head :: head"></head><head th:replace="fragments/head :: head">
     <script type="text/javascript">
-
         var i = 0;
 
         function saveUser(form){
 
         }
 
-        function addUser()
+        function addUser(name,email,password)
         {
             var newRow = document.createElement('tr');
 
-            newRow.innerHTML = '<td> <input type="text" name="Designation_'+i+'" ><td> <input type="text" name="Serie_'+i+'" ></td><td><input type="text" name="Quantite_'+i+'" ></td><td><input type="button" id="admin" onClick="addUser()" value="modify" /><input type="button" value="remove" onclick="removeUser(this.parentNode)"></td>';
-
+            newRow.innerHTML = '<td> <input type="text" value = name name="Designation_'+i+'"><td> <input type="text" value=email name="Serie_'+i+'" ></td><td><input type="text" value=password name="Quantite_'+i+'" ></td><td><input type="button" id="admin" onClick="addUser()" value="modify" /><input type="button" value="remove" onclick="removeUser(this.parentNode)"></td>';
             document.getElementById('admin').appendChild(newRow);
             i++;
         }
@@ -68,6 +66,14 @@
 </head>
 
 <body>
+<form>
+    List <User> users = (List <Users>) request.getAttribut("tab","WebRequest.SCOPE_SESSION);
+    for(User u: users)
+    {
+
+    }
+</form>
+
 <div class="tabs">
     <span data-tab-value="#tab_1">User manager</span>
     <span data-tab-value="#tab_2">Channel manager</span>
@@ -76,65 +82,75 @@
 
 <div class="tab-content">
     <div class="tabs__tab active" id="tab_1" data-tab-info>
+
         <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-            <table border="1" id="admin">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                </tr>
-                <tbody  >
-                <tr >
-                    <td  >
-                        <input type="text" readonly="true" name="Name">
-                    </td>
-                    <td>
-                        <input type="text" readonly="true" name="Email">
-                    </td>
-                    <td>
-                        <input type="text" readonly="true" name="Password">
-                    </td>
-                    <td>
-                        <input type="button" readonly="true" id="addUser()" onClick="addUser()" value="Remove" />
-                    </td>
-                    <td>
-                        <input type="button" value="remove" onclick="removeUser(this.parentNode)">
-                    </td>
 
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <label for="username" class="block text-sm font-medium text-gray-700">
-                Username
-            </label>
-            <div class="mt-1">
-                <input id="username" name="username" type="text" autocomplete="username" required
-                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            </div>
-        </div>
+            <th:block th:each="channel: ${channels}">
+                <table border="1" id="admin">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                    </tr>
+                    <tbody  >
+                    <tr >
+                        <td  >
+                            <input type="text" readonly="true" name="Name">
+                        </td>
+                        <td>
+                            <input type="text" readonly="true" name="Email">
+                        </td>
+                        <td>
+                            <input type="text" readonly="true" name="Password">
+                        </td>
+                        <td>
+                            <input type="button" readonly="true" id="addUser()" onClick="addUser('test','test','test')" value="Remove" />
+                        </td>
+                        <td>
+                            <input type="button" value="remove" onclick="removeUser(this.parentNode)">
+                        </td>
 
-        <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">
-                Email address
-            </label>
-            <div class="mt-1">
-                <input id="email" name="mail" type="email" autocomplete="email" required
-                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            </div>
-        </div>
+                    </tr>
+                    </tbody>
+                </table>
+            </th:block>
+                <script>
+                    saveUser(admin.get)
+                </script>
 
-        <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">
-                Password
-            </label>
-            <div class="mt-1">
-                <input id="password" name="password" type="text" autocomplete="current-password" required
-                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            </div>
         </div>
-        <input type="button" value="AddUser"/>
+            <form class="space-y-6" th:action="@{/admin}" method="POST">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">
+                        Username
+                    </label>
+                    <div class="mt-1">
+                        <input id="username" name="username" type="text" autocomplete="username" required
+                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">
+                        Email address
+                    </label>
+                    <div class="mt-1">
+                        <input id="email" name="mail" type="email" autocomplete="email" required
+                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">
+                        Password
+                    </label>
+                    <div class="mt-1">
+                        <input id="password" name="password" type="text" autocomplete="current-password" required
+                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+                <input type="button" value="AddUser"/>
+            </form>
     </div>
 
     <div class="tabs__tab" id="tab_2" data-tab-info>
