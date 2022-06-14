@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="/app.js"></script>
+<div class="min-h-full flex">
+    <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+    <div th:replace="fragments/sidebar :: mobile"></div>
+    <div th:replace="fragments/sidebar :: desktop"></div>
+
+    <div class="lg:pl-64 flex flex-col w-0 flex-1">
+        <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200">
+            <button type="button"
+                    class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900 lg:hidden">
+                <span class="sr-only">Open sidebar</span>
+                <!-- Heroicon name: outline/menu-alt-2 -->
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                     stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/>
+                </svg>
+            </button>
+            <div class="flex-1 px-4 flex justify-between">
+                <div class="flex-1 flex">
+                </div>
+                <div class="ml-4 flex items-center lg:ml-6">
+                    <button type="button"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <main class="flex-1">
+            <div class="py-8 xl:py-10">
+                <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="sm:flex sm:items-center">
+                        <div class="sm:flex-auto">
+                            <h1 class="text-xl font-semibold text-gray-900">Users</h1>
+                            <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p>
+                        </div>
+                        <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                            <a th:href="@{/admin/users/create}" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add user</a>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex flex-col">
+                        <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                <table class="min-w-full divide-y divide-gray-300">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 md:pl-0">Name</th>
+                                        <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Email</th>
+                                        <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Role</th>
+                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 md:pr-0">
+                                            <span class="sr-only">Edit</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                    <tr th:each="user : ${users}">
+                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 md:pl-0" th:text="${user.getName()}"></td>
+                                        <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500" th:text="${user.getMail()}"></td>
+                                        <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">Role</td>
+                                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 md:pr-0">
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Editer</a>
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Supprimer</a>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <nav class="bg-white py-3 flex items-center justify-between border-t border-gray-200" aria-label="Pagination">
+                                    <div class="hidden sm:block">
+                                        <p class="text-sm text-gray-700">
+                                            Showing
+                                            <span class="font-medium" th:text="${page} * 10 + 1"></span>
+                                            to
+                                            <span class="font-medium" th:text="(${page} + 1) * 10 - 1"></span>
+                                            results
+                                        </p>
+                                    </div>
+                                    <div class="flex-1 flex justify-between sm:justify-end">
+                                        <a th:if="${previousPageUrl} != null" th:href="${previousPageUrl}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"> Previous </a>
+                                        <a th:href="${nextPageUrl}" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"> Next </a>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

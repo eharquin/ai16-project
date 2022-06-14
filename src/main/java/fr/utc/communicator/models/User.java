@@ -24,34 +24,31 @@ public class User {
         return id;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
     public void setMail(String mail) {
         this.mail = mail;
+    }
+    public String getMail() {
+        return mail;
     }
 
     public boolean isAdmin() {
         return isAdmin;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
     public String getProfilePictureUrl() {
         return String.format("https://ui-avatars.com/api/?name=%s&background=212936&color=D2D5DA&size=128", getName());
     }

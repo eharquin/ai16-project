@@ -64,16 +64,7 @@
         }
     </style>
 </head>
-
 <body>
-<form>
-    List <User> users = (List <Users>) request.getAttribut("tab","WebRequest.SCOPE_SESSION);
-    for(User u: users)
-    {
-
-    }
-</form>
-
 <div class="tabs">
     <span data-tab-value="#tab_1">User manager</span>
     <span data-tab-value="#tab_2">Channel manager</span>
@@ -114,10 +105,6 @@
                     </tbody>
                 </table>
             </th:block>
-                <script>
-                    saveUser(admin.get)
-                </script>
-
         </div>
             <form class="space-y-6" th:action="@{/admin}" method="POST">
                 <div>

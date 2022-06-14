@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,6 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private UserRepository userRepository;
-
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -45,7 +45,7 @@ public class AdminController {
         return mv;
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/admin/add")
     public void addUser(@RequestParam("username") String username, @RequestParam("mail") String mail, @RequestParam("password") String password ) {
         User user = userRepository.findByMail(mail);
         if (user == null) {
@@ -61,10 +61,10 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/admin")
+    @DeleteMapping("/admin/delete")
     public void removeUser(@RequestParam("mail") String mail) {
         User user = userRepository.findByMail(mail);
-        if (user != null & user.getIsAdmin() == false)
+        if (user != null & true)
         {
             userRepository.delete(user);
         }

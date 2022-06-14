@@ -1,4 +1,5 @@
 var stompClient = null;
+var channelId = null;
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
@@ -17,7 +18,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/channels/1', function (message) {
+        stompClient.subscribe('/topic/channels/' + channelId, function (message) {
             messageBody = JSON.parse(message.body);
             // Instantiate the table with the existing HTML tbody
             // and the row with the template
@@ -45,7 +46,7 @@ function disconnect() {
 }
 
 function sendMessage() {
-    stompClient.send("/app/channels/1/send", {}, JSON.stringify({'content': $("#message").val()}));
+    stompClient.send("/app/channels/" + channelId + "/send", {}, JSON.stringify({'content': $("#message").val()}));
     $("#message").val('');
 }
 
@@ -54,19 +55,14 @@ function showGreeting(message) {
 }
 
 $(function () {
-    $("form").on('submit', function (e) {
+    $("#messageForm").on('submit', function (e) {
         e.preventDefault();
     });
     $(document).ready(function(){
+        channelId = $("#channelId").val();
         connect();
     })
     $("#sendMessage").click(function () {
         sendMessage();
     });
-    // $("#disconnect").click(function () {
-    //     disconnect();
-    // });
-    // $("#send").click(function () {
-    //     sendName();
-    // });
 });
